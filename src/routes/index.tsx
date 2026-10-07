@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Github, Linkedin, Youtube, Twitter, Codepen, BookOpen } from "lucide-react";
+import { ArrowUpRight, BookOpen, Github, Globe, Instagram, Linkedin, Twitter } from "lucide-react";
 import planet from "@/assets/planet.png";
 import spacecraft from "@/assets/spacecraft.png";
 import landscape from "@/assets/landscape.jpg";
@@ -21,11 +21,11 @@ export const Route = createFileRoute("/")({
 
 const links = [
   { name: "X / Twitter", icon: Twitter, href: "https://x.com/chiraaglohar" },
-  { name: "YouTube", icon: Youtube, href: "https://youtube.com" },
+  { name: "Codolio", icon: Globe, href: "https://codolio.com/profile/Chiraaglohar" },
   { name: "GitHub", icon: Github, href: "https://github.com/chiraaglohar" },
-  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/chiraaglohar" },
-  { name: "CodePen", icon: Codepen, href: "https://codepen.io" },
-  { name: "Blog", icon: BookOpen, href: "https://medium.com" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/chiraaglohar" },
+  { name: "Instagram", icon: Instagram, href: "https://instagram.com/chiraaglohar" },
+  { name: "Blog", icon: BookOpen, href: `https://medium.com/@${"chiraaglohar"}` },
 ];
 
 const focus = ["Web platforms", "Developer tools", "UI engineering", "Open source", "Side quests"];
@@ -34,7 +34,11 @@ const stats: [string, number][] = [["Curiosity", 90], ["Code", 85], ["Design", 7
 function useClock() {
   const [t, setT] = useState("");
   useEffect(() => {
-    const f = () => setT(new Date().toISOString().slice(11, 19));
+    const f = () => {
+      const now = new Date();
+      const ist = new Date(now.getTime() + 5.5 * 60 * 60 * 1000);
+      setT(ist.toISOString().slice(11, 19));
+    };
     f();
     const id = setInterval(f, 1000);
     return () => clearInterval(id);
@@ -64,7 +68,7 @@ function Index() {
             <div className="coordinates min-w-0 border-l-2 border-primary pl-4 text-xs leading-6 tracking-widest">
               <div className="label text-muted-foreground">Coordinates</div>
               <div className="font-bold">MILKY WAY · INDIA</div>
-              <div className="text-muted-foreground">UTC {time}</div>
+              <div className="text-muted-foreground">IST (UTC+5:30) {time}</div>
               <div className="hatch mt-1 h-2 w-20" />
             </div>
           </div>
