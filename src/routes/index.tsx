@@ -20,10 +20,10 @@ export const Route = createFileRoute("/")({
 });
 
 const links = [
-  { name: "X / Twitter", icon: Twitter, href: "https://x.com" },
+  { name: "X / Twitter", icon: Twitter, href: "https://x.com/chiraaglohar" },
   { name: "YouTube", icon: Youtube, href: "https://youtube.com" },
-  { name: "GitHub", icon: Github, href: "https://github.com" },
-  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com" },
+  { name: "GitHub", icon: Github, href: "https://github.com/chiraaglohar" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/chiraaglohar" },
   { name: "CodePen", icon: Codepen, href: "https://codepen.io" },
   { name: "Blog", icon: BookOpen, href: "https://medium.com" },
 ];
