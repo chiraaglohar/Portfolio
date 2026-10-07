@@ -1,0 +1,207 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Archivo Black", "Arial Black", sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0rem;
+  --background: oklch(0.95 0.012 85);
+  --foreground: oklch(0.2 0.005 60);
+  --card: oklch(0.97 0.01 85);
+  --card-foreground: oklch(0.2 0.005 60);
+  --popover: oklch(0.97 0.01 85);
+  --popover-foreground: oklch(0.2 0.005 60);
+  --primary: oklch(0.68 0.19 45);
+  --primary-foreground: oklch(0.97 0.01 85);
+  --secondary: oklch(0.9 0.012 85);
+  --secondary-foreground: oklch(0.2 0.005 60);
+  --muted: oklch(0.9 0.012 85);
+  --muted-foreground: oklch(0.45 0.01 60);
+  --accent: oklch(0.68 0.19 45);
+  --accent-foreground: oklch(0.97 0.01 85);
+  --destructive: oklch(0.6 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.2 0.005 60 / 18%);
+  --input: oklch(0.2 0.005 60 / 18%);
+  --ring: oklch(0.68 0.19 45);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+}
+
+@utility font-display { font-family: var(--font-display); }
+@utility label { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; }
+@utility dots {
+  background-image: radial-gradient(var(--primary) 1px, transparent 1.2px);
+  background-size: 14px 14px;
+  opacity: 0.35;
+}
+@utility hatch {
+  background-image: repeating-linear-gradient(-45deg, var(--primary) 0 3px, transparent 3px 7px);
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+@keyframes blink { 50% { opacity: 0; } }
+.animate-rise { animation: rise 0.8s ease-out both; }
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-blink { animation: blink 1s steps(1) infinite; }
+
+@keyframes spacecraft-levitate {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+@keyframes spacecraft-vibrate {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(0.6px, -0.4px) rotate(0.12deg); }
+  50% { transform: translate(-0.5px, 0.5px) rotate(-0.1deg); }
+  75% { transform: translate(0.4px, 0.3px) rotate(0.08deg); }
+}
+.spacecraft-levitate { animation: spacecraft-levitate 6s ease-in-out infinite; }
+.spacecraft-vibrate { animation: spacecraft-vibrate 0.22s linear infinite; }
+
+.social-link {
+  isolation: isolate;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.social-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--foreground);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.social-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  background: var(--foreground);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  transition: background-color 180ms ease;
+}
+.social-link:is(:hover, :focus-visible) {
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.social-link:is(:hover, :focus-visible)::before { transform: scaleX(1); }
+.social-link:is(:hover, :focus-visible)::after { background: var(--primary); }
+.social-link-label { transition: color 180ms ease; }
+.social-link:is(:hover, :focus-visible) .social-link-label { color: var(--primary); }
+.social-link:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+.target-lock {
+  position: absolute;
+  right: -1px;
+  bottom: -9px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 7px;
+  background: var(--primary);
+  color: var(--foreground);
+  font-size: 8px;
+  letter-spacing: 0;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 200ms ease;
+}
+.social-link:is(:hover, :focus-visible) .target-lock { opacity: 1; transform: translateY(0); }
+.social-link:focus-visible > svg { transform: translate(2px, -2px); }
+.contact-link {
+  background-image: linear-gradient(var(--primary), var(--primary));
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  transition: background-size 180ms ease;
+}
+.contact-link:is(:hover, :focus-visible) { background-size: 100% 100%; }
+
+@media (max-width: 639px) {
+  .portfolio-content { padding: 16px 14px 0; gap: 10px; }
+  .identity-row { gap: 14px; }
+  .index-badge { width: 108px; padding: 8px 10px; }
+  .index-badge .font-display { font-size: 42px; }
+  .index-badge .label { margin-top: 8px; font-size: 7px; }
+  .index-badge > div:last-child { margin-top: 6px; }
+  .coordinates { padding-left: 12px; font-size: 8px; line-height: 15px; }
+  .coordinates .label { font-size: 8px; }
+  .coordinates .hatch { height: 5px; width: 56px; }
+  .mobile-progress { gap: 10px; margin-top: 16px; }
+  .mobile-progress .label { font-size: 7px; letter-spacing: 0; }
+  .portfolio-name { margin-top: 26px; font-size: 42px; line-height: 0.95; letter-spacing: 0; }
+  .portfolio-name .hatch { height: 14px; width: 34px; }
+  .portfolio-name + div { margin-top: 14px; height: 3px; width: 38px; }
+  .portfolio-intro { margin-top: 16px; font-size: 10px; line-height: 17px; }
+  .portfolio-intro .animate-blink { height: 11px; width: 5px; }
+  .social-grid { margin-top: 30px; gap: 12px 10px; }
+  .social-link { min-width: 0; min-height: 62px; padding: 12px; gap: 8px; }
+  .social-link > svg:first-of-type { width: 18px; height: 18px; }
+  .social-link > svg:last-of-type { width: 11px; height: 11px; flex-shrink: 0; }
+  .social-link-label { font-size: 7px; letter-spacing: 0; }
+  .social-link .truncate { font-size: 10px; }
+  .social-link .hatch { width: 50px; height: 3px; }
+  .portfolio-contact { margin-top: 28px; padding-left: 18px; font-size: 10px; line-height: 17px; }
+  .space-scene { width: calc(100% + 28px); max-width: none; margin-left: -14px; }
+  .focus-panel { max-width: none; margin-top: 16px; padding: 15px; }
+  .focus-panel > .label { font-size: 8px; }
+  .focus-list { display: flex; flex-wrap: wrap; gap: 10px 16px; }
+  .focus-list > li { margin-top: 0; font-size: 7px; letter-spacing: 0; }
+  .focus-list > li > span { height: 6px; width: 6px; flex-shrink: 0; }
+  .portfolio-bottom { margin-top: 20px; }
+  .status-panel { position: relative; margin: 0 14px 28px; }
+  .status-panel::after { content: ""; position: absolute; right: -4px; bottom: -4px; width: 32%; height: 45%; border-right: 3px solid var(--primary); border-bottom: 3px solid var(--primary); pointer-events: none; }
+  .status-panel .label { font-size: 7px; letter-spacing: 0; }
+  .status-panel > div:first-child { flex-wrap: wrap; gap: 8px; }
+  .status-panel > div:first-child > span { width: 100%; padding-left: 14px; }
+  .status-panel > div:last-child { padding: 12px 14px 18px; }
+  .status-panel > div:last-child > div { grid-template-columns: 78px minmax(0, 1fr) 28px; gap: 8px; }
+  .status-panel .text-right { font-size: 8px; }
+  .portfolio-bottom > .absolute.label { left: 14px; bottom: 16px; font-size: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spacecraft-levitate, .spacecraft-vibrate, .animate-rise, .animate-blink { animation: none; }
+  .social-link, .social-link::before, .social-link::after,
+  .social-link-label, .social-link > svg, .target-lock, .contact-link { transition: none; }
+}
