@@ -106,7 +106,7 @@ function Index() {
 
           <p className="portfolio-contact mt-8 border-l-4 border-primary pl-6 text-sm leading-6">
             Want to collaborate?<br />
-             Reach out on <a className="contact-link underline decoration-primary underline-offset-4" href="https://x.com">X</a> or{" "}
+             Reach out on <a className="contact-link underline decoration-primary underline-offset-4" href="https://x.com">X / Twitter</a> or{" "}
              <a className="contact-link underline decoration-primary underline-offset-4" href="https://linkedin.com">LinkedIn</a>.
           </p>
         </div>
